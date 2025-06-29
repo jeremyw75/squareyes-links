@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type");
+      const id = params.get("id");
+
+      if (type && id) {
+        // Try to open app
+        window.location.href = `squareyes://link?type=${type}&id=${id}`;
+
+        // Fallback after delay
+        setTimeout(() => {
+          if (type === "film" || type === "tv") {
+            window.location.href = `https://www.themoviedb.org/${type}/${id}`;
+          } else {
+            window.location.href = `https://www.themoviedb.org/person/${id}`;
+          }
+        }, 1200);
+      } else {
+        window.location.href = "https://squareyes.app"; // fallback if bad link
+      }
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Squareyes...</p>
+  </body>
+</html>
