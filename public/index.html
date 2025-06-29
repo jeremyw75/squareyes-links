@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Squareyes Redirect</title>
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const page = params.get("page");
-      const type = params.get("type");
-      const id = params.get("id");
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Squareyes Redirect</title>
 
-      if (page && type && id) {
-        // Try to open the app
-        window.location.href = `squareyes://link?page=${page}&type=${type}&id=${id}`;
+  <!-- ✅ Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=1061103845">
 
-        // Fallback to TMDb after 1.2s if app not installed
-        setTimeout(() => {
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+    const type = params.get("type");
+    const id = params.get("id");
+
+    if (page && type && id) {
+      // Attempt to open the app using custom URL scheme
+      window.location.href = `squareyes://link?page=${page}&type=${type}&id=${id}`;
+
+      // Optional fallback to TMDb (for Android or non-Safari browsers)
+      setTimeout(() => {
+        const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        if (!isIos) {
           if (page === "details" && (type === "film" || type === "tv")) {
             window.location.href = `https://www.themoviedb.org/${type}/${id}`;
           } else if (page === "bio" && type === "person") {
@@ -24,15 +32,16 @@
           } else {
             window.location.href = "https://www.themoviedb.org";
           }
-        }, 1200);
-      } else {
-        // No valid params, fallback to TMDb homepage
-        window.location.href = "https://www.themoviedb.org";
-      }
-    </script>
-  </head>
-  <body>
-    <p>Redirecting to Squareyes...</p>
-  </body>
+        }
+      }, 1200);
+    } else {
+      // Invalid/missing parameters — fallback
+      window.location.href = "https://www.themoviedb.org";
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting to Squareyes...</p>
+</body>
 </html>
 
