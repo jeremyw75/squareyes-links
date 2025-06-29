@@ -19,6 +19,8 @@
 
       const appUrl = `squareyes://link?page=${page}&type=${type}&id=${id}`;
       const fallbackUrl = (() => {
+        console.log("page:", page, "type:", type, "id:", id); // Add for debug
+      
         if (page === "details" && (type === "film" || type === "tv")) {
           return `https://www.themoviedb.org/${type}/${id}`;
         } else if (page === "bio" && type === "person") {
