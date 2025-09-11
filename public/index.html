@@ -30,6 +30,8 @@
             window.location.href = `https://www.themoviedb.org/person/${id}`;
           } else if (page === "bio" && type === "company") {
             window.location.href = `https://www.themoviedb.org/company/${id}`;
+          } else if (page === "list" && type === "public") {
+            window.location.href = `https://www.themoviedb.org/list/${id}`;
           } else {
             window.location.href = "https://www.themoviedb.org";
           }
